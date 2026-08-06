@@ -108,3 +108,28 @@ data/
 models/           the saved model (versioned with DVC)
 ```
 
+## Versioning (DVC)
+
+Code is versioned with git; the **data and the trained model are versioned with DVC**, so
+git stays light (it only tracks small `.dvc` pointer files, not the large files).
+
+- `data/input.dvc`, `models.dvc` — pointer files (committed to git)
+- `.dvc/cache/` — the actual content, addressed by hash (ignored by git)
+
+After cloning, restore the data and model that match the current commit:
+
+```bash
+dvc checkout
+```
+
+When the data or model changes, record the new version:
+
+```bash
+dvc add data/input models
+git add data/input.dvc models.dvc
+git commit -m "update data/model"
+```
+
+The cache is local. In a team you would add a remote (`dvc remote add ...`) and `dvc push` /
+`dvc pull` to share it — out of scope here.
+
