@@ -34,6 +34,9 @@ python -m src.experiments
 mlflow ui --backend-store-uri sqlite:///mlflow.db
 ```
 
+The `mlflow.db` from our own run is committed, so you can open the UI and see all the
+searches (feature selection, model comparison, tuning) **without running step 1 first**.
+
 **3. Produce the submission** — train the final model and write the prediction files:
 
 ```bash
