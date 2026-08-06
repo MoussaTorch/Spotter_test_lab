@@ -34,9 +34,6 @@ python -m src.experiments
 mlflow ui --backend-store-uri sqlite:///mlflow.db
 ```
 
-The `mlflow.db` from our own run is committed, so you can open the UI and see all the
-searches (feature selection, model comparison, tuning) **without running step 1 first**.
-
 **3. Produce the submission** — train the final model and write the prediction files:
 
 ```bash
@@ -111,10 +108,11 @@ data/
 models/           the saved model (versioned with DVC)
 ```
 
+
+
 ## Versioning (DVC)
 
-Code is versioned with git; the **data and the trained model are versioned with DVC**, so
-git stays light (it only tracks small `.dvc` pointer files, not the large files).
+Code is versioned with git; the **data and the trained model are versioned with DVC**.
 
 - `data/input.dvc`, `models.dvc` — pointer files (committed to git)
 - `.dvc/cache/` — the actual content, addressed by hash (ignored by git)
@@ -135,4 +133,3 @@ git commit -m "update data/model"
 
 The cache is local. In a team you would add a remote (`dvc remote add ...`) and `dvc push` /
 `dvc pull` to share it — out of scope here.
-
